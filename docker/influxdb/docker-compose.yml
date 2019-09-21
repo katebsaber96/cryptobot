@@ -1,0 +1,33 @@
+version: '3'
+services:
+  influxdb:
+    image: influxdb:latest
+    volumes:
+      # Mount for influxdb data directory
+      - /docker_data/influxdb/data:/var/lib/influxdb
+      # Mount for influxdb configuration
+      - /docker_data/influxdb/config/:/etc/influxdb/
+    ports:
+      # The API for InfluxDB is served on port 8086
+      - "8086:8086"
+    environment:
+      - INFLUXDB_ADMIN_USER= admin
+      - INFLUXDB_ADMIN_PASSWORD= @Mystrongpassword1
+    restart: always
+
+  chronograf:
+    image: chronograf:latest
+    volumes:
+      # Mount for chronograf database
+      - /docker_data/chronograf/data/:/var/lib/chronograf/
+    ports:
+      # The WebUI for Chronograf is served on port 8888
+      - "8888:8888"
+    depends_on:
+      - influxdb
+    environment:
+      - AUTH_DURATION=1h
+      - TOKEN_SECRET=supersupersecret 
+      - GH_CLIENT_ID=675bb71da98121b6f594
+      - GH_CLIENT_SECRET=4798580199a4c6e23e220bd876d0e60392b2cd21
+    restart: always

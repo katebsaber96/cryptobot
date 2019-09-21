@@ -1,0 +1,6 @@
+influxdb
+kafka-python
+pytz
+requests
+websocket-client
+python-binance
