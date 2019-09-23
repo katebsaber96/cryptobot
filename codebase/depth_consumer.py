@@ -3,10 +3,9 @@ from kafka.consumer.fetcher import ConsumerRecord
 from kafka import KafkaConsumer
 from influxdb import InfluxDBClient
 
-consumer = KafkaConsumer('book', bootstrap_servers='94.130.92.47:9092')
-client = InfluxDBClient(host='localhost', port=8086, username='root', password='root', database='example2')
-client.create_database('example2')
-
+consumer = KafkaConsumer('book', bootstrap_servers='127.0.0.1:9092')
+client = InfluxDBClient(host='localhost', port=8086, username='admin', password='@Mystrongpassword1', database='cryptobot')
+client.create_database('cryptobot')
 
 def to_influx_format(message: ConsumerRecord):
     temp_value = json.loads(message.value.decode('utf-8'))

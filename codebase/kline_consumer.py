@@ -4,9 +4,9 @@ from kafka import KafkaConsumer
 from influxdb import InfluxDBClient
 
 
-consumer = KafkaConsumer('kline', bootstrap_servers='94.130.92.47:9092')
-client = InfluxDBClient(host='localhost', port=8086, username='root', password='root', database='example')
-client.create_database('example')
+consumer = KafkaConsumer('kline', bootstrap_servers='127.0.0.1:9092')
+client = InfluxDBClient(host='localhost', port=8086, username='admin', password='@Mystrongpassword1', database='cryptobot')
+client.create_database('cryptobot')
 
 
 def to_influx_format(message: ConsumerRecord):
