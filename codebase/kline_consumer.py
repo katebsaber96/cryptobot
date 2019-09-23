@@ -20,7 +20,16 @@ def to_influx_format(message: ConsumerRecord):
         'interval': temp_value['k']['i'] if temp_value['e'] == 'kline' else None
     }
     json_body['time'] = temp_value['k']['t']
-    json_body['fields'] = temp_value['k']
+
+    fields = dict()
+    field_names = ['t', 'T', 's', 'i', 'f', 'L', 'n', 'x']
+    for each_key in temp_value['k'].keys():
+        if each_key not in field_names:
+            fields[each_key] = float(temp_value['k'][each_key])
+        else:
+            fields[each_key] = temp_value['k'][each_key]
+
+    json_body['fields'] = fields
 
     return [json_body]
 
